@@ -46,8 +46,9 @@ def annotateText(sentences, kws, label):
     
     result = []
 
-    for sent in tqdm(sentences):
+    for sent in sentences:
         ann = annotate(sent, kws, label)
-        if ann: result.append(ann)
+        if ann:
+            result.append(ann)
         
     return result
