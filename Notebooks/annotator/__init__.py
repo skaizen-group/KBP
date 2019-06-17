@@ -1,5 +1,10 @@
 import re
+import pickle
 from suffix_trees import STree
+from tqdm import tqdm
+
+def findAll(lst, predicate):
+    return [i for i in lst if predicate(i)]
 
 def handleOverlap(spans):
     del_in = []
@@ -33,5 +38,16 @@ def findEntities(txt, kws):
 def annotate(txt, kws, label):
     bounds = findEntities(txt, kws)
     anns = [(a,b,label) for a,b in bounds]
-    result = (txt, {'entities': anns})
+    if anns:
+        result = (txt, {'entities': anns})
+        return result
+
+def annotateText(sentences, kws, label):
+    
+    result = []
+
+    for sent in tqdm(sentences):
+        ann = annotate(sent, kws, label)
+        if ann: result.append(ann)
+        
     return result
