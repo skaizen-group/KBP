@@ -161,7 +161,7 @@ def mergeAnnotations(data):
     out_ents = []
     for doc in data:
         l = len(out_text)
-        out_text += doc[0]
+        out_text += (doc[0]+'\n')
         entities = doc[1]['entities']
         for ent in entities:
             (a,b,c) = ent
