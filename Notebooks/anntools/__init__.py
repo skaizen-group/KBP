@@ -33,7 +33,7 @@ def loadAnnotations(ann_files, txt_files, types):
                 
     return ANNOTATIONS
 
-# DEPRECATED: View all annotation instances for a given list of types. Replaced by readAnnotations() and ViewTuple()
+# DEPRECATED: View all annotation instances for a given list of types. Replaced by labelWords(), readSpan() and ViewTuple()
 
 def viewAnnotations(ann_files, txt_files, types, tf=None):
     
@@ -213,3 +213,22 @@ def filterSeen(TEST_DATA, TRAIN_DATA):
         SEEN_TEST_DATA.append((text, {'entities':seen}))
         
     return UNSEEN_TEST_DATA, SEEN_TEST_DATA
+
+def splitAnnotations(old_train):
+    new_train = []
+    for article in old_train:
+        old_ents = article[1]['entities']
+        full_text = article[0]
+        doc_sents = tokenize.sent_tokenize(article[0], language='french')
+        offset = 0
+        for ind, sent in enumerate(doc_sents):
+            new_ents = []
+            sent_start = full_text.index(sent)
+            sent_end = sent_start + len(sent)
+            
+            for item in old_ents:
+                if sent_start <= item[1] <= sent_end:
+                    new_ents.append((item[0]-sent_start, item[1]-sent_start, item[2]))
+            if new_ents:
+                new_train.append((sent, {'entities': new_ents}))
+    return new_train

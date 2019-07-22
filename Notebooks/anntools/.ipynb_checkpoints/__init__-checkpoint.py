@@ -33,7 +33,7 @@ def loadAnnotations(ann_files, txt_files, types):
                 
     return ANNOTATIONS
 
-# DEPRECATED: View all annotation instances for a given list of types. Replaced by readAnnotations() and ViewTuple()
+# DEPRECATED: View all annotation instances for a given list of types. Replaced by labelWords(), readSpan() and ViewTuple()
 
 def viewAnnotations(ann_files, txt_files, types, tf=None):
     
