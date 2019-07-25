@@ -2,6 +2,8 @@ import glob
 import os
 import random
 
+from nltk import tokenize
+
 # Gets all files in all branches of the given path for selected files (passed as tuple)
 
 def getFileList(ftypes, start_path = '.'):
@@ -220,7 +222,7 @@ def splitAnnotations(old_train):
         old_ents = article[1]['entities']
         full_text = article[0]
         doc_sents = tokenize.sent_tokenize(article[0], language='french')
-        offset = 0
+        
         for ind, sent in enumerate(doc_sents):
             new_ents = []
             sent_start = full_text.index(sent)
